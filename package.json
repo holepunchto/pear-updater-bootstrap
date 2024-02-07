@@ -1,6 +1,6 @@
 {
   "name": "pear-updater-bootstrap",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Bootstrap the pear-runtime updater from a key",
   "main": "index.js",
   "bin": {
