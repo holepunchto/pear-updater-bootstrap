@@ -6,12 +6,25 @@
   "bin": {
     "pear-updater-bootstrap": "./bin.js"
   },
+  "files": [
+    "bin.js",
+    "index.js"
+  ],
+  "imports": {
+    "path": {
+      "bare": "bare-path",
+      "default": "path"
+    }
+  },
   "dependencies": {
     "corestore": "^6.16.2",
     "hypercore-id-encoding": "^1.2.0",
     "hyperdrive": "^11.6.3",
     "hyperswarm": "^4.7.14",
     "pear-updater": "^3.0.1"
+  },
+  "optionalDependencies": {
+    "bare-path": "^2.1.0"
   },
   "devDependencies": {
     "standard": "^17.1.0"
