@@ -5,7 +5,9 @@ const Corestore = require('corestore')
 const Updater = require('pear-updater')
 const path = require('path')
 
-module.exports = async function bootstrap (key, directory = 'pear') {
+module.exports = async function bootstrap (key, directory = 'pear', {
+  lock = true
+} = {}) {
   if (!key) throw new Error('key is required')
 
   const corestore = new Corestore(path.join(directory, 'corestores/platform'))
@@ -14,7 +16,7 @@ module.exports = async function bootstrap (key, directory = 'pear') {
   const u = new Updater(new Hyperdrive(corestore, checkout.key), {
     directory,
     checkout,
-    lock: path.join(directory, 'lock')
+    lock: lock ? path.join(directory, 'lock') : null
   })
 
   const swarm = new Hyperswarm()
