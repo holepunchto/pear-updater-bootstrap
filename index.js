@@ -39,6 +39,7 @@ module.exports = async function bootstrap (key, directory = 'pear', {
   await u.wait({ ...checkout, length: 1 })
 
   await swarm.destroy()
+  await corestore.close()
 
   return await u.applyUpdate()
 }
