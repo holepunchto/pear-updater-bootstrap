@@ -29,12 +29,12 @@ module.exports = async function bootstrap (key, directory = 'pear', {
   let serving = false
 
   // TODO: add an option for this in swarm
-  // swarm.dht.on('nat-update', function () {
-  //   if (!swarm.dht.randomized && !serving) {
-  //     serving = true
-  //     swarm.join(u.drive.discoveryKey, { server: true, client: false }).flushed().then(() => topic.destroy())
-  //   }
-  // })
+  swarm.dht.on('nat-update', function () {
+    if (!swarm.dht.randomized && !serving) {
+      serving = true
+      swarm.join(u.drive.discoveryKey, { server: true, client: false }).flushed().then(() => topic.destroy())
+    }
+  })
 
   await u.wait({ ...checkout, length: 1 })
 
