@@ -10,9 +10,11 @@ module.exports = async function bootstrap (key, directory = 'pear', {
 } = {}) {
   if (!key) throw new Error('key is required')
 
+  console.log('creating corestore...')
   const corestore = new Corestore(path.join(directory, 'corestores/platform'))
   const checkout = { key: HypercoreID.normalize(key), length: 0, fork: 0 }
 
+  console.log('creating updater...')
   const u = new Updater(new Hyperdrive(corestore, checkout.key), {
     directory,
     checkout,
@@ -21,6 +23,7 @@ module.exports = async function bootstrap (key, directory = 'pear', {
 
   const swarm = new Hyperswarm()
 
+  console.log('opening swarm...')
   await u.ready()
 
   const topic = swarm.join(u.drive.discoveryKey, { server: false, client: true })
@@ -36,10 +39,13 @@ module.exports = async function bootstrap (key, directory = 'pear', {
     }
   })
 
+  console.log('updater waiting...')
   await u.wait({ ...checkout, length: 1 })
 
   await swarm.destroy()
+  console.log('closing corestore...')
   await corestore.close()
 
+  console.log('updater applying update...')
   return await u.applyUpdate()
 }

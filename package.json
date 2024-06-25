@@ -21,7 +21,7 @@
     "hypercore-id-encoding": "^1.2.0",
     "hyperdrive": "^11.6.3",
     "hyperswarm": "^4.7.14",
-    "pear-updater": "^3.0.1"
+    "pear-updater": "github:holepunchto/pear-updater#bootstrap-debug"
   },
   "optionalDependencies": {
     "bare-path": "^2.1.0"
