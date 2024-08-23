@@ -14,7 +14,7 @@ module.exports = async function bootstrap (key, directory = 'pear', {
   const corestore = new Corestore(path.join(directory, 'corestores/platform'))
   const checkout = { key: HypercoreID.normalize(key), length: 0, fork: 0 }
 
-  console.log('creating updater...')
+  console.log('creating updater...', key)
   const u = new Updater(new Hyperdrive(corestore, checkout.key), {
     directory,
     checkout,
