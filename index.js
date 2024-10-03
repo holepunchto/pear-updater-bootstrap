@@ -6,7 +6,7 @@ const Updater = require('pear-updater')
 const path = require('path')
 
 module.exports = async function bootstrap (key, directory = 'pear', {
-  lock = true
+  lock = true, bootstrap = undefined
 } = {}) {
   if (!key) throw new Error('key is required')
 
@@ -19,16 +19,12 @@ module.exports = async function bootstrap (key, directory = 'pear', {
     lock: lock ? path.join(directory, 'lock') : null
   })
 
-  const bootstrap = Pear.config.bootstrap
   const swarm = new Hyperswarm({ bootstrap })
 
   await u.ready()
 
   const topic = swarm.join(u.drive.discoveryKey, { server: false, client: true })
-  swarm.on('connection', (c) => {
-    console.log('updater connected')
-    corestore.replicate(c)
-  })
+  swarm.on('connection', c => corestore.replicate(c))
 
   let serving = false
 
