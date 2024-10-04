@@ -6,7 +6,8 @@ const Updater = require('pear-updater')
 const path = require('path')
 
 module.exports = async function bootstrap (key, directory = 'pear', {
-  lock = true
+  lock = true,
+  bootstrap
 } = {}) {
   if (!key) throw new Error('key is required')
 
@@ -19,7 +20,7 @@ module.exports = async function bootstrap (key, directory = 'pear', {
     lock: lock ? path.join(directory, 'lock') : null
   })
 
-  const swarm = new Hyperswarm()
+  const swarm = new Hyperswarm({ bootstrap })
 
   await u.ready()
 
