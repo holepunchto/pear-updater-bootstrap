@@ -19,7 +19,7 @@
   "dependencies": {
     "corestore": "^6.16.2",
     "hypercore-id-encoding": "^1.2.0",
-    "hyperdrive": "^11.6.3",
+    "hyperdrive": "^11.13.1",
     "hyperswarm": "^4.7.14",
     "pear-updater": "^3.0.1"
   },
