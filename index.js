@@ -7,7 +7,8 @@ const path = require('path')
 
 module.exports = async function bootstrap (key, directory = 'pear', {
   lock = true,
-  bootstrap
+  bootstrap,
+  onupdater = null
 } = {}) {
   if (!key) throw new Error('key is required')
 
@@ -36,6 +37,8 @@ module.exports = async function bootstrap (key, directory = 'pear', {
       swarm.join(u.drive.discoveryKey, { server: true, client: false }).flushed().then(() => topic.destroy())
     }
   })
+
+  if (onupdater !== null) onupdater(u)
 
   await u.wait({ ...checkout, length: 1 })
 
