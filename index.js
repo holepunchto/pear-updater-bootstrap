@@ -8,12 +8,14 @@ const path = require('path')
 module.exports = async function bootstrap (key, directory = 'pear', {
   lock = true,
   bootstrap,
-  onupdater = null
+  onupdater = null,
+  length = 0,
+  fork = 0
 } = {}) {
   if (!key) throw new Error('key is required')
 
   const corestore = new Corestore(path.join(directory, 'corestores/platform'))
-  const checkout = { key: HypercoreID.normalize(key), length: 0, fork: 0 }
+  const checkout = { key: HypercoreID.normalize(key), length, fork }
 
   const u = new Updater(new Hyperdrive(corestore, checkout.key), {
     directory,
