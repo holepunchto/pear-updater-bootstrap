@@ -10,7 +10,9 @@ module.exports = async function bootstrap (key, directory = 'pear', {
   bootstrap,
   onupdater = null,
   length = 0,
-  fork = 0
+  fork = 0,
+  force = false,
+  swap = null
 } = {}) {
   if (!key) throw new Error('key is required')
 
@@ -20,7 +22,9 @@ module.exports = async function bootstrap (key, directory = 'pear', {
   const u = new Updater(new Hyperdrive(corestore, checkout.key), {
     directory,
     checkout,
-    lock: lock ? path.join(directory, 'lock') : null
+    lock: lock ? path.join(directory, 'lock') : null,
+    force,
+    swap
   })
 
   const swarm = new Hyperswarm({ bootstrap })
