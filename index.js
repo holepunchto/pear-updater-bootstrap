@@ -4,6 +4,7 @@ const HypercoreID = require('hypercore-id-encoding')
 const Corestore = require('corestore')
 const Updater = require('pear-updater')
 const path = require('path')
+const fs = require('fs/promises')
 
 module.exports = async function bootstrap (key, directory = 'pear', {
   lock = true,
@@ -11,20 +12,21 @@ module.exports = async function bootstrap (key, directory = 'pear', {
   onupdater = null,
   length = 0,
   fork = 0,
-  force = false,
-  swap = null
+  force = false
 } = {}) {
   if (!key) throw new Error('key is required')
 
   const corestore = new Corestore(path.join(directory, 'corestores/platform'))
   const checkout = { key: HypercoreID.normalize(key), length, fork }
 
+  const current = path.join(directory, 'current')
+
   const u = new Updater(new Hyperdrive(corestore, checkout.key), {
     directory,
     checkout,
     lock: lock ? path.join(directory, 'lock') : null,
     force,
-    swap
+    swap: force ? await fs.realpath(current) : undefined
   })
 
   const swarm = new Hyperswarm({ bootstrap })
