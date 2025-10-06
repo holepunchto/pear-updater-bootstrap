@@ -9,14 +9,7 @@ const fs = require('fs/promises')
 module.exports = async function bootstrap(
   key,
   directory = 'pear',
-  {
-    lock = true,
-    bootstrap,
-    onupdater = null,
-    length = 0,
-    fork = 0,
-    force = false
-  } = {}
+  { lock = true, bootstrap, onupdater = null, length = 0, fork = 0, force = false } = {}
 ) {
   if (!key) throw new Error('key is required')
 
