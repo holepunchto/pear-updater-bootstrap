@@ -10,6 +10,7 @@ module.exports = async function bootstrap (key, directory = 'pear', {
   lock = true,
   bootstrap,
   onupdater = null,
+  onapply = null,
   length = 0,
   fork = 0,
   force = false
@@ -26,7 +27,8 @@ module.exports = async function bootstrap (key, directory = 'pear', {
     checkout,
     lock: lock ? path.join(directory, 'lock') : null,
     force,
-    swap: force ? await fs.realpath(current) : undefined
+    swap: force ? await fs.realpath(current) : undefined,
+    onapply
   })
 
   const swarm = new Hyperswarm({ bootstrap })
