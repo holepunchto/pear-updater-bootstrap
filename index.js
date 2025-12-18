@@ -16,7 +16,8 @@ module.exports = async function bootstrap(
     onapply = null,
     length = 0,
     fork = 0,
-    force = false
+    force = false,
+    host
   } = {}
 ) {
   if (!key) throw new Error('key is required')
@@ -32,6 +33,7 @@ module.exports = async function bootstrap(
     lock: lock ? path.join(directory, 'lock') : null,
     force,
     swap: force ? await fs.realpath(current) : undefined,
+    host,
     onapply
   })
 
