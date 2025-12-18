@@ -6,15 +6,19 @@ const Updater = require('pear-updater')
 const path = require('path')
 const fs = require('fs/promises')
 
-module.exports = async function bootstrap (key, directory = 'pear', {
-  lock = true,
-  bootstrap,
-  onupdater = null,
-  onapply = null,
-  length = 0,
-  fork = 0,
-  force = false
-} = {}) {
+module.exports = async function bootstrap(
+  key,
+  directory = 'pear',
+  {
+    lock = true,
+    bootstrap,
+    onupdater = null,
+    onapply = null,
+    length = 0,
+    fork = 0,
+    force = false
+  } = {}
+) {
   if (!key) throw new Error('key is required')
 
   const corestore = new Corestore(path.join(directory, 'corestores/platform'))
@@ -36,7 +40,7 @@ module.exports = async function bootstrap (key, directory = 'pear', {
   await u.ready()
 
   const topic = swarm.join(u.drive.discoveryKey, { server: false, client: true })
-  swarm.on('connection', c => corestore.replicate(c))
+  swarm.on('connection', (c) => corestore.replicate(c))
 
   let serving = false
 
@@ -44,7 +48,10 @@ module.exports = async function bootstrap (key, directory = 'pear', {
   swarm.dht.on('nat-update', function () {
     if (!swarm.dht.randomized && !serving) {
       serving = true
-      swarm.join(u.drive.discoveryKey, { server: true, client: false }).flushed().then(() => topic.destroy())
+      swarm
+        .join(u.drive.discoveryKey, { server: true, client: false })
+        .flushed()
+        .then(() => topic.destroy())
     }
   })
 

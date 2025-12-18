@@ -8,7 +8,7 @@ npm install pear-updater-bootstrap
 
 ## Usage
 
-``` js
+```js
 import bootstrap from 'pear-updater-bootstrap'
 
 await bootstrap(key, platformDir)

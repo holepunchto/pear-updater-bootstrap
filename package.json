@@ -30,11 +30,9 @@
   "optionalDependencies": {
     "bare-path": "^3.0.0"
   },
-  "devDependencies": {
-    "standard": "^17.1.0"
-  },
   "scripts": {
-    "test": "standard"
+    "format": "prettier --write .",
+    "lint": "prettier --check . && lunte"
   },
   "repository": {
     "type": "git",
@@ -45,5 +43,10 @@
   "bugs": {
     "url": "https://github.com/holepunchto/pear-updater-bootstrap/issues"
   },
-  "homepage": "https://github.com/holepunchto/pear-updater-bootstrap"
+  "homepage": "https://github.com/holepunchto/pear-updater-bootstrap",
+  "devDependencies": {
+    "lunte": "^1.0.0",
+    "prettier": "^3.6.2",
+    "prettier-config-holepunch": "^2.0.0"
+  }
 }
