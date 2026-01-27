@@ -2,6 +2,7 @@ const Hyperdrive = require('hyperdrive')
 const Hyperswarm = require('hyperswarm')
 const HypercoreID = require('hypercore-id-encoding')
 const Corestore = require('corestore')
+const DeviceFile = require('device-file')
 const Updater = require('pear-updater')
 const path = require('path')
 const fs = require('fs/promises')
@@ -65,4 +66,8 @@ module.exports = async function bootstrap(
   await corestore.close()
 
   return await u.applyUpdate()
+}
+
+module.exports.validate = function (directory) {
+  return DeviceFile.validate(path.join(directory, 'corestores/platform/CORESTORE'))
 }
